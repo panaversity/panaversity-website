@@ -17,9 +17,7 @@ We go beyond the code. Panaversity equips you with the skills to not just unders
 
 **Our Programs:**
 
-* **Professional Certificates:** Focus on specific technical areas like Generative AI, AR/VR Development, or Blockchain Applications. Initially we will start by offering only Certification Programs. The first program we will offer will be: 
-
-**[Panaversity Certified Cloud Applied Generative AI Engineer (GenEng)](https://docs.google.com/document/d/15usu1hkrrRLRjcq_3nCTT-0ljEcgiC44iSdvdqrCprk/edit?usp=sharing)**
+* **Professional Certificates:** Focus on specific technical areas like Generative AI, AR/VR Development, or Blockchain Applications. Initially we will start by offering only Certification Programs. The first program we will offer will be: **[Panaversity Certified Cloud Applied Generative AI Engineer (GenEng)](https://docs.google.com/document/d/15usu1hkrrRLRjcq_3nCTT-0ljEcgiC44iSdvdqrCprk/edit?usp=sharing)**
 
 
 * **Bachelor of Science in Emerging Technologies:** Choose a concentration in Generative AI, Spatial Computing, Cloud Native Computing, or Web 3.0.
