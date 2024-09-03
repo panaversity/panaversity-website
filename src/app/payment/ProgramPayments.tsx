@@ -34,11 +34,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
+  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string,
 );
 
 type PaymentStatus = "pending" | "not payable" | "paid";
@@ -51,21 +52,32 @@ const statusColors: Record<PaymentStatus, string> = {
 export const ProgramPayments = () => {
   const [preferredDay, setPreferredDay] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (paymentMethod: string) => {
     if (paymentMethod == "Card") {
-      const response = await fetch("/api/payments/stripe", {
+      const response = await fetch("./api/payment/stripe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ priceId: "price_1Pt9ZzJkhXgr5TBKDwJoygWN" }),
+        body: JSON.stringify({
+          batch_no: "62",
+          course_id: "6fa459ea-ee8a-3ca4-894e-db77e160355e",
+          course_name: "Python for Beginners",
+          program_id: "123e4567-e89b-12d3-a456-426614174000",
+          user_id: "3",
+        }),
       });
-  
-      const session = await response.json();
-  
-      const stripe: any = await stripePromise;
-      await stripe.redirectToCheckout({ sessionId: session.id });
+
+      const data = await response.json();
+
+      if (data.redirectUrl) {
+        // redirect to the URL stored in data
+        router.push(data.redirectUrl);
+      } else {
+        console.log("error");
+      }
     } else {
       console.log({
         programName: "Web Development Bootcamp",
