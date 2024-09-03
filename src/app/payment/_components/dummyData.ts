@@ -1,15 +1,11 @@
 // export const studentPrograms = [
 // ];
 export const studentPrograms = [
-  { programId: 1, programTitle: "Cloud Applied Generative AI Engineer" },
-  { programId: 2, programTitle: "Blockchain Developer" },
-  { programId: 3, programTitle: "Blockchain Developer" },
-  { programId: 4, programTitle: "Blockchain Developer" },
-  { programId: 5, programTitle: "Blockchain Developer" },
+  { programId: 1, programTitle: "Cloud Applied Generative AI Engineer" }
 
 ];
 
-type PaymentStatus = "pending" | "not payable" | "paid";
+type PaymentStatus = "pending" | "locked" | "paid";
 
 
 export interface CoursePayment {
@@ -37,7 +33,7 @@ export const initialCoursePayments: CoursePayment[] = [
     courseNumber: 2,
     batchNumber: 1,
     feeAmount: 5000,
-    paymentDeadline: "2023-12-01",
+    paymentDeadline: "2025-01-01",
     paymentStatus: "pending",
   },
   {
@@ -47,7 +43,7 @@ export const initialCoursePayments: CoursePayment[] = [
     batchNumber: 1,
     feeAmount: null,
     paymentDeadline: null,
-    paymentStatus: "not payable",
+    paymentStatus: "locked",
   },
   {
     courseTitle: "Generative AI with PyTorch",
@@ -55,7 +51,7 @@ export const initialCoursePayments: CoursePayment[] = [
     batchNumber: 1,
     feeAmount: null,
     paymentDeadline: null,
-    paymentStatus: "not payable",
+    paymentStatus: "locked",
   },
   {
     courseTitle: "FaFine-Tuning Open-Source Large Language Modelsll",
@@ -63,7 +59,7 @@ export const initialCoursePayments: CoursePayment[] = [
     batchNumber: 1,
     feeAmount: null,
     paymentDeadline: null,
-    paymentStatus: "not payable",
+    paymentStatus: "locked",
   },
   {
     courseTitle: "Kubernetes and Advanced CNAI",
@@ -71,7 +67,7 @@ export const initialCoursePayments: CoursePayment[] = [
     batchNumber: 1,
     feeAmount: null,
     paymentDeadline: null,
-    paymentStatus: "not payable",
+    paymentStatus: "locked",
   },
   {
     courseTitle: "Physical AI and Humanoid Robotics Development",
@@ -79,6 +75,6 @@ export const initialCoursePayments: CoursePayment[] = [
     batchNumber: 1,
     feeAmount: null,
     paymentDeadline: null,
-    paymentStatus: "not payable",
+    paymentStatus: "locked",
   },
 ];

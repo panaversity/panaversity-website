@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, MousePointerClick } from "lucide-react";
 
 import React, { useEffect, useRef } from "react";
 import { studentPrograms } from "./dummyData";
@@ -35,24 +35,28 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
-import { loadStripe } from "@stripe/stripe-js";
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string,
-);
-
-type PaymentStatus = "pending" | "not payable" | "paid";
+type PaymentStatus = "pending" | "locked" | "paid";
 const statusColors: Record<PaymentStatus, string> = {
   pending: "bg-yellow-500",
-  "not payable": "bg-gray-500",
+  locked: "bg-gray-500",
   paid: "bg-green-500",
 };
 
-export const ProgramPayments = () => {
+interface ProgramPaymentsProps {
+  fee_amount: number;
+  currency: string;
+}
+
+export const ProgramPayments: React.FC<ProgramPaymentsProps> = ({
+  fee_amount,
+  currency,
+}) => {
   const [preferredDay, setPreferredDay] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
   const router = useRouter();
+  const country = Cookies.get("country") || "NA";
 
   const handleSubmit = async (paymentMethod: string) => {
     if (paymentMethod == "Card") {
@@ -138,7 +142,7 @@ export const ProgramPayments = () => {
                           {payment.paymentStatus === "pending" && (
                             <>
                               <p className="mb-2 text-right font-semibold">
-                                Fee : ${payment.feeAmount?.toLocaleString()}
+                                Fee : {fee_amount} {currency}
                               </p>
                               <p className="text-right text-sm font-medium text-primary">
                                 {payment.paymentDeadline &&
@@ -152,17 +156,18 @@ export const ProgramPayments = () => {
                         </CardContent>
                         <CardFooter className="pt-2">
                           <Badge
-                            className={`${statusColors[payment.paymentStatus]} w-full justify-center hover:${statusColors[payment.paymentStatus]}`}
+                            className={`${statusColors[payment.paymentStatus]} w-full justify-center hover:${statusColors[payment.paymentStatus]} text-md h-8 space-x-3`}
                             aria-label={`Payment status: ${payment.paymentStatus}`}
                           >
-                            {payment.paymentStatus}
+                            <p>{payment.paymentStatus}</p>
+                            <MousePointerClick />
                           </Badge>
                         </CardFooter>
                       </Card>
                     </DialogTrigger>
                   ) : (
                     <Card
-                      className={`flex cursor-not-allowed flex-col`}
+                      className={`flex cursor-not-allowed flex-col bg-slate-50`}
                       ref={(el) => {
                         if (el) cardsRef.current[index] = el;
                       }}
@@ -178,7 +183,7 @@ export const ProgramPayments = () => {
                       </CardHeader>
                       <CardFooter className="pt-2">
                         <Badge
-                          className={`${statusColors[payment.paymentStatus]} w-full justify-center hover:${statusColors[payment.paymentStatus]}`}
+                          className={`${statusColors[payment.paymentStatus]} w-full justify-center hover:${statusColors[payment.paymentStatus]} text-md h-8`}
                           aria-label={`Payment status: ${payment.paymentStatus}`}
                         >
                           {payment.paymentStatus}
@@ -209,31 +214,33 @@ export const ProgramPayments = () => {
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <Label className="font-medium">Program</Label>
-                            <p>Web Development Bootcamp</p>
+                            <p>Cloud Applied Generative AI Engineer</p>
                           </div>
                           <div>
                             <Label className="font-medium">Course</Label>
-                            <p>Advanced React</p>
+                            <p>Applied Generative AI Fundamentals</p>
                           </div>
                           <div>
                             <Label className="font-medium">Course Number</Label>
-                            <p>WD301</p>
+                            <p>2</p>
                           </div>
                           <div>
                             <Label className="font-medium">Batch</Label>
-                            <p>Batch 22</p>
+                            <p>Batch 01</p>
                           </div>
                           <div>
                             <Label className="font-medium">Fee</Label>
-                            <p>$999</p>
+                            <p>
+                              {fee_amount} {currency}
+                            </p>
                           </div>
                           <div>
                             <Label className="font-medium">Due Date</Label>
-                            <p>2023-12-31</p>
+                            <p>2025-01-01</p>
                           </div>
                         </div>
 
-                        <div className="space-y-4">
+                        {/* <div className="space-y-4">
                           <div className="space-y-2">
                             <Label htmlFor="preferredDay">Preferred Day</Label>
                             <Select
@@ -276,24 +283,32 @@ export const ProgramPayments = () => {
                               </SelectContent>
                             </Select>
                           </div>
-                        </div>
+                        </div> */}
 
                         <div className="flex items-center space-x-2 text-yellow-600">
                           <AlertCircle className="h-4 w-4" />
                           <p className="text-sm">
-                            Please verify your selection. It cannot be changed
-                            later.
+                            Online Zoom classes schedule will be shared through
+                            Email
                           </p>
                         </div>
                       </CardContent>
-                      <CardFooter className="flex justify-between">
-                        <Button onClick={() => handleSubmit("Card")}>
-                          Pay with Card
-                        </Button>
-                        <Button onClick={() => handleSubmit("KucikPay")}>
-                          Pay with KucikPay
-                        </Button>
-                      </CardFooter>
+                      {country === "PK" ? (
+                        <CardFooter className="flex justify-between">
+                          <Button onClick={() => handleSubmit("Card")}>
+                            Pay with Card
+                          </Button>
+                          <Button onClick={() => handleSubmit("KucikPay")}>
+                            Pay with KucikPay
+                          </Button>
+                        </CardFooter>
+                      ) : (
+                        <CardFooter className="flex items-center justify-center">
+                          <Button onClick={() => handleSubmit("Card")}>
+                            Pay with Card
+                          </Button>
+                        </CardFooter>
+                      )}
                     </Card>
                   </DialogContent>
                 </Dialog>

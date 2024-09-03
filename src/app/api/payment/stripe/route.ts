@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     const result = await fetch(
-      "https://silence-denial-previous-offered.trycloudflare.com/api/v1/payment/stripe/payment-link",
+      `${process.env.NEXT_PUBLIC_PAYMENT_URL}/api/v1/payment/stripe/payment-link`,
       {
         method: "POST",
         headers: {
