@@ -34,14 +34,20 @@ We go beyond the code. Panaversity equips you with the skills to not just unders
 
 **Visit our website to explore your future!**
 
-www.panaversity.com
+[www.panaversity.org](https://panaversity.org/)
 
 **Follow Us:**
 
-* Social Media Links (fill in with your preferred platforms)
+*** Social Media Links:**
+- [Facebook](https://www.facebook.com/panaversity)
+- [Instagram](https://www.instagram.com/panaversity/)
+- [Youtube](https://www.youtube.com/@panaversity)
+- [LinkedIn](https://www.linkedin.com/company/panaversity)
+- [Threads](https://www.threads.com/@panaversity)
+- [Twitter (X)](https://x.com/panaversity)
+- [GitHub](https://github.com/panaversity)
 
 **Contact Us:**
 
-* Email: info@panaversity.com
-* Phone: +1 (888) FUTURE-U
-
+* Email: support@panaversity.org
+* Phone: +92 300 8263374
