@@ -34,7 +34,7 @@ We go beyond the code. Panaversity equips you with the skills to not just unders
 
 **Visit our website to explore your future!**
 
-www.panaversity.com
+www.panaversity.org
 
 **Follow Us:**
 
