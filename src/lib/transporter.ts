@@ -1,31 +1,17 @@
 import nodemailer from "nodemailer";
 
-if (!process.env.EMAIL_SECRET) {
-  throw new Error("Missing EMAIL_SECRET");
-}
-
-if (!process.env.USER_EMAIL) {
-  throw new Error("Missing USER_EMAIL");
-}
-
-if (!process.env.EMAIL_SERVICE) {
-  throw new Error("Missing EMAIL_SERVICE");
-}
-
-if (!process.env.EMAIL_HOST) {
-  throw new Error("Missing EMAIL_HOST");
-}
-
-const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE,
-  host: process.env.EMAIL_HOST,
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.USER_EMAIL,
-    pass: process.env.EMAIL_SECRET,
-  },
-});
+const transporter = process.env.EMAIL_SECRET && process.env.USER_EMAIL && process.env.EMAIL_SERVICE && process.env.EMAIL_HOST 
+  ? nodemailer.createTransport({
+      service: process.env.EMAIL_SERVICE,
+      host: process.env.EMAIL_HOST,
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.USER_EMAIL,
+        pass: process.env.EMAIL_SECRET,
+      },
+    })
+  : null;
 
 const sendEmail = async ({
   to,
@@ -36,6 +22,11 @@ const sendEmail = async ({
   subject: string;
   html: string;
 }) => {
+  if (!transporter) {
+    console.error("Transporter not initialized. Missing environment variables.");
+    throw new Error("Email service not configured.");
+  }
+
   const mailOptions = {
     from: process.env.USER_EMAIL,
     to,

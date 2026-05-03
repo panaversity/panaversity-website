@@ -70,28 +70,31 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <div className='bg-white'>
-      <div className='mx-auto max-w-7xl px-6 py-16 lg:px-8'>
-        <div className='mx-auto  divide-y divide-gray-900/10'>
-          <h2 className='text-4xl text-center leading-tight font-bold py-5 tracking-tight text-custom-color'>
-            Frequently asked questions
+    <div className='bg-gray-50/50 py-24'>
+      <div className='mx-auto max-w-5xl px-6 lg:px-8'>
+        <div className='text-center mb-16'>
+          <h2 className='text-4xl font-black tracking-tight text-gray-900 mb-4'>
+            Common <span className="text-custom-color">Questions</span>
           </h2>
-          {/* <h2 className='text-4xl text-center md:text-justify  font-bold tracking-tight text-custom-color sm:text-4xl pb-10'>
-            {level.LevelTitle}
-          </h2> */}
-          <Accordion type='single' collapsible className='w-full'>
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={faq.question}>
-                <AccordionTrigger className='text-start text-xl'>
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className=' text-lg px-7'>
-                  <p>{faq.answer}</p>
-                </AccordionContent>{' '}
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <p className="text-gray-600 text-lg">Everything you need to know about the program.</p>
         </div>
+        
+        <Accordion type='single' collapsible className='w-full space-y-4'>
+          {faqs.map((faq, index) => (
+            <AccordionItem 
+              key={index} 
+              value={faq.question}
+              className="bg-white border border-gray-200 rounded-2xl px-6 overflow-hidden transition-all duration-300 hover:border-custom-color/30 hover:shadow-md group"
+            >
+              <AccordionTrigger className='text-start text-xl font-bold text-gray-800 hover:text-custom-color py-6 hover:no-underline'>
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className='text-lg text-gray-600 pb-6 leading-relaxed'>
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </div>
   )

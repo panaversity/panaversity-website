@@ -3,6 +3,7 @@ import { db } from "@/lib/drizzle";
 import { eq, or, and } from "drizzle-orm";
 import { UsersTable } from "@/lib/schema/users";
 import { formCities, formQualifications } from "@/constants/constants";
+import { kp_cities } from "@/components/Registration/FormEntryData";
 import { otpCodes } from "@/lib/schema/otpCodes";
 import sendEmail from "@/lib/transporter";
 import RegistrationConfirmation from "../../../../emailTemplates/registrationconfirmation";
@@ -22,7 +23,7 @@ const validateInput = (input: any) => {
     errors.push("Invalid Email length!");
   }
 
-  if (!formCities.includes(input.city)) {
+  if (!formCities.includes(input.city) && !kp_cities.includes(input.city)) {
     errors.push("Invalid City!");
   }
 
@@ -63,7 +64,7 @@ export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
   const expectedOrigin = process.env.BASE_URL;
 
-  if (origin !== expectedOrigin) {
+  if (expectedOrigin && origin !== expectedOrigin) {
     return new Response(JSON.stringify({ message: "Invalid origin" }), {
       status: 403,
     });
